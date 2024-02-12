@@ -15,3 +15,4 @@ enable_testing()
 
 add_subdirectory(src/BubbleSort)
 add_subdirectory(src/BinarySearch)
+add_subdirectory(src/SingleLinkedList)
