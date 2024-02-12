@@ -14,8 +14,11 @@ TEST(SingleLinkedList, List) {
   EXPECT_EQ(list->length, 2);
 
   list->append(11);
-  /* expect(list.removeAt(1)).toEqual(9); */
-  /* expect(list.remove(9)).toEqual(undefined); */
+  EXPECT_EQ(list->removeAt(1), 9);
+  ASSERT_THROW(list->remove(9), std::invalid_argument);
+  EXPECT_EQ(list->remove(11), 11);
+  EXPECT_EQ(list->length, 1);
+
   /* expect(list.removeAt(0)).toEqual(5); */
   /* expect(list.removeAt(0)).toEqual(11); */
   /* expect(list.length).toEqual(0); */

@@ -39,6 +39,25 @@ T LinkedList<T>::get(int index) {
 };
 
 template <typename T>
+T LinkedList<T>::remove(T target) {
+  auto node = this->head;
+  std::shared_ptr<Node<T>> prev;
+
+  while (node != nullptr) {
+    if (node->data == target) {
+      prev->next = node->next;
+      T value = node->data;
+      this->length--;
+      return value;
+    }
+    prev = node;
+    node = node->next;
+  }
+
+  throw std::invalid_argument("Value not found");
+};
+
+template <typename T>
 T LinkedList<T>::removeAt(int index) {
   auto node = this->head;
   std::shared_ptr<Node<T>> prev;
