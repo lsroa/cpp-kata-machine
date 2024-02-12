@@ -1,3 +1,4 @@
 #pragma once
+#include <vector>
 
-int sum(int a, int b);
+int bubble_sort(std::vector<int> &input);

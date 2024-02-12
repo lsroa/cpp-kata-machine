@@ -14,4 +14,4 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_subdirectory(src/day1)
-
+add_subdirectory(src/day2)
