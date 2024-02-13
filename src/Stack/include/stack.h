@@ -8,7 +8,7 @@ class Stack {
  public:
   Stack() = default;
   int length;
-  int data[CAPACITY];
+  T data[CAPACITY];
   T pop();
   T peek() const;
   void push(T data);
