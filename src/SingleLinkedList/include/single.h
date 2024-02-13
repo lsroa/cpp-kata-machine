@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include <memory>
+#include <ostream>
 
 template <typename T>
 class Node {
@@ -21,14 +23,15 @@ class LinkedList {
   T get(int index);
   T remove(T data);
   T removeAt(int index);
+  friend std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list);
 };
 
 template <typename T>
 T LinkedList<T>::get(int index) {
-  auto node = this->head;
+  auto node = head;
 
-  if (index > this->length) {
-    return T();
+  if (index > length) {
+    std::invalid_argument("Invalid index");
   }
 
   for (int i = 0; i < index; i++) {
@@ -40,14 +43,21 @@ T LinkedList<T>::get(int index) {
 
 template <typename T>
 T LinkedList<T>::remove(T target) {
-  auto node = this->head;
+  auto node = head;
   std::shared_ptr<Node<T>> prev;
+
+  if (head->data == target) {
+    T value = head->data;
+    head = head->next;
+    length--;
+    return value;
+  }
 
   while (node != nullptr) {
     if (node->data == target) {
       prev->next = node->next;
       T value = node->data;
-      this->length--;
+      length--;
       return value;
     }
     prev = node;
@@ -59,8 +69,15 @@ T LinkedList<T>::remove(T target) {
 
 template <typename T>
 T LinkedList<T>::removeAt(int index) {
-  auto node = this->head;
+  auto node = head;
   std::shared_ptr<Node<T>> prev;
+
+  if (index == 0) {
+    auto [new_head, value] = (*head);
+    head = new_head;
+    length--;
+    return value;
+  }
 
   for (int i = 0; i < index; i++) {
     prev = node;
@@ -70,27 +87,34 @@ T LinkedList<T>::removeAt(int index) {
   prev->next = node->next;
   T value = node->data;
 
-  this->length--;
+  length--;
   return value;
 };
 
 template <typename T>
 void LinkedList<T>::prepend(T data) {
   auto new_node = std::make_shared<Node<T>>(data);
-  new_node->next = this->head;
-  this->head = new_node;
-  this->length++;
+
+  if (length == 0) {
+    head = tail = new_node;
+    length++;
+    return;
+  }
+
+  new_node->next = head;
+  head = new_node;
+  length++;
 };
 
 template <typename T>
 void LinkedList<T>::append(T data) {
   auto new_node = std::make_shared<Node<T>>(data);
-  if (this->length == 0) {
-    this->head = this->tail = new_node;
-    this->length++;
+  if (length == 0) {
+    head = tail = new_node;
+    length++;
     return;
   }
-  this->tail->next = new_node;
-  this->tail = new_node;
-  this->length++;
+  tail->next = new_node;
+  tail = new_node;
+  length++;
 };
