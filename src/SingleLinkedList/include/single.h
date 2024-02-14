@@ -23,7 +23,6 @@ class LinkedList {
   T get(int index);
   T remove(T data);
   T removeAt(int index);
-  friend std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list);
 };
 
 template <typename T>

@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include <vector>
 
 bool binary_search(std::vector<int> &arr, int target) {
